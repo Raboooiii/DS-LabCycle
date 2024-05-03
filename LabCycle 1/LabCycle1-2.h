@@ -31,6 +31,7 @@ public:
     void mergeSort(int, int);
     void quickSort(int, int);
     int getSize();
+    friend ostream& operator<<(ostream& os, const Array<T>& array);
 
 private:
     void merge(int, int, int);
