@@ -1,26 +1,25 @@
 #include <iostream>
 using namespace std;
 
-template <typename T>
-struct Node {
-    T data;
-    Node<T>* prev;
-    Node<T>* next;
-};
-
-template <typename T>
-class Deque {
+template<typename T> 
+class TwoWayStack { 
 private:
-    Node<T>* front;
-    Node<T>* rear;
+    T* array; 
+    int size; 
+    int leftTop;
+    int rightTop;
 
 public:
-    Deque(); 
-    ~Deque();
-    void insertFront(T element); 
-    void insertRear(T element); 
-    T deleteFront(); 
-    T deleteRear();
-    void display(); 
+    TwoWayStack(int stackSize);
+    ~TwoWayStack(); 
     bool isEmpty(); 
+    bool isLeftFull(); 
+    bool isRightFull();
+    void pushLeft(const T& element); 
+    void pushRight(const  T&  element); 
+    T popLeft();
+    T popRight(); 
+    void display();
+
 };
+
