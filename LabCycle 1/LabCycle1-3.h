@@ -26,4 +26,6 @@ public:
     int frequencyCount(T);
     int countDistinct();
     int getSize();
+
+    friend ostream& operator<<(ostream& os, const Array<T>& arrObj);
 };
