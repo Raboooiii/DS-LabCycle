@@ -22,4 +22,6 @@ public:
     Polynomial<T> add(const Polynomial<T>& other) const;
     Polynomial<T> multiply(const Polynomial<T>& other) const;
     void display() const;
+
+    friend ostream &operator<<(ostream &out, const Polynomial<T> &polynomial);
 };
