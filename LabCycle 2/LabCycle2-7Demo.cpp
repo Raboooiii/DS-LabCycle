@@ -1,48 +1,50 @@
 #include "LabCycle2-7.cpp"
 
-
+void displayMenu() {
+    cout << "Menu:" << endl;
+    cout << "1. Push Left" << endl; 
+    cout << "2. Push Right" << endl; 
+    cout << "3. Pop Left" << endl; 
+    cout << "4. Pop Right" << endl;
+    cout << "5. Display Stack" << endl; 
+    cout << "6.  Exit" << endl; 
+    cout << "Enter your choice: ";
+}
 int main() {
-    Deque<int> dq;
-
+    TwoWayStack<int> stack(5); 
     int choice;
-    do {
-        cout << "\nDEQUE Operations:\n";
-        cout << "1. Insert Front\n";
-        cout << "2. Insert Rear\n";
-        cout << "3. Delete Front\n";
-        cout << "4. Delete Rear\n";
-        cout << "5. Exit\n";
-        cout << "Enter your choice: ";
+    int element;
+
+    do  { displayMenu();
         cin >> choice;
 
-        switch (choice) {
-            case 1: {
-                int element;
-                cout << "Enter element to insert at front: ";
-                cin >> element;
-                dq.insertFront(element);
-                break;
-            }
-            case 2: {
-                int element;
-                cout << "Enter element to insert at rear: ";
-                cin >> element;
-                dq.insertRear(element);
-                break;
-            }
-            case 3:
-                cout << "Deleted element from front: " << dq.deleteFront() << endl;
-                break;
-            case 4:
-                cout << "Deleted element from rear: " << dq.deleteRear() << endl;
-                break;
-            case 5:
-                cout << "Exiting...\n";
-                break;
-            default:
-                cout << "Invalid choice. Please try again.\n";
+        switch (choice) { 
+            case 1:
+            cout << "Enter element to push left: "; 
+            cin >>  element; 
+            stack.pushLeft(element);
+        break; 
+        case 2:
+            cout << "Enter element to push right: "; 
+            cin >>  element; 
+            stack.pushRight(element);
+        break; 
+        case 3:
+            cout << "Popped Left: " << stack.popLeft() << endl; 
+            break;
+        case 4:
+            cout << "Popped Right: " << stack.popRight() << endl; 
+            break;
+        case 5:
+            stack.display();
+        break; 
+        case 6:
+            cout << "Exiting program." << endl; 
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
         }
-    } while (choice != 5);
+    } while (choice != 6);
 
     return 0;
 }
