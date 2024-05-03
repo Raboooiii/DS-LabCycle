@@ -25,4 +25,6 @@ public:
     void deleteFromEnd();
     void deleteFromPosition(int);
     void display();
+
+    friend ostream& operator<<(ostream& os, const LinkedList<T>& list);
 };
