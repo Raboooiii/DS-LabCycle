@@ -1,113 +1,80 @@
 #include "LabCycle2-7.h"
 
-template <typename T>
-Deque<T>::Deque() {
-    front = nullptr;
-    rear = nullptr;
+template<typename T> TwoWayStack<T>::TwoWayStack(int stackSize) {
+    size = stackSize; 
+    array = new T[size]; 
+    leftTop = -1; 
+    rightTop = size;
+}
+template<typename T> TwoWayStack<T>::~TwoWayStack() {
+    delete[] array;
 }
 
-template <typename T>
-Deque<T>::~Deque() {
-    while (!isEmpty()) {
-        deleteFront();
-    }
+template<typename T>
+bool TwoWayStack<T>::isEmpty() {
+    return leftTop == -1 && rightTop == size;
+}
+template<typename T>
+bool TwoWayStack<T>::isLeftFull() { 
+    return leftTop + 1 == rightTop;
+}
+template<typename T>
+bool TwoWayStack<T>::isRightFull() { 
+    return rightTop - 1 == leftTop;
 }
 
-template <typename T>
-void Deque<T>::insertFront(T element) {
-    Node<T>* newNode = new Node<T>;
-    newNode->data = element;
-    newNode->prev = nullptr;
-    newNode->next = front;
-
-    if (isEmpty()) {
-        rear = newNode;
+template<typename T>
+void TwoWayStack<T>::pushLeft(const T& element) { 
+    if (isLeftFull() || isEmpty()) {
+        cout << "Left Stack Overflow" << endl;
     } else {
-        front->prev = newNode;
+        leftTop++;
+        array[leftTop] =  element;
     }
-
-    front = newNode;
-    display();
 }
-
-template <typename T>
-void Deque<T>::insertRear(T element) {
-    Node<T>* newNode = new Node<T>;
-    newNode->data = element;
-    newNode->next = nullptr;
-    newNode->prev = rear;
-
-    if (isEmpty()) {
-        front = newNode;
+template<typename T>
+void TwoWayStack<T>::pushRight(const T& element) { 
+    if (isRightFull() || isEmpty()) {
+        cout << "Right Stack Overflow"  << endl;
     } else {
-        rear->next = newNode;
+        rightTop--; array[rightTop] = element;
     }
-
-    rear = newNode;
-    display();
 }
-
-template <typename T>
-T Deque<T>::deleteFront() {
-    if (isEmpty()) {
-        cout << "DEQUE Underflow!\n";
+ 
+template<typename T>
+T TwoWayStack<T>::popLeft() { 
+    if (leftTop == -1) {
+        cout << "Left Stack Underflow" << endl; 
+        return T();
+    } else {
+        T element = array[leftTop]; 
+        leftTop--;
+        return element;
+    }
+}
+template<typename T>
+T TwoWayStack<T>::popRight() { 
+    if (rightTop == size) {
+        cout << "Right Stack Underflow" << endl; 
         return T(); 
-    }
-
-    Node<T>* temp = front;
-    T deletedItem = temp->data;
-
-    if (front == rear) {
-        front = rear = nullptr;
     } else {
-        front = front->next;
-        front->prev = nullptr;
-    }
-
-    delete temp;
-    display();
-    return deletedItem;
+        T element = array[rightTop]; 
+        rightTop++;
+        return element;
+  } 
 }
-
-template <typename T>
-T Deque<T>::deleteRear() {
+template<typename  T>
+void TwoWayStack<T>::display() { 
     if (isEmpty()) {
-        cout << "DEQUE Underflow!\n";
-        return T(); 
-    }
-
-    Node<T>* temp = rear;
-    T deletedItem = temp->data;
-
-    if (front == rear) {
-        front = rear = nullptr;
+        cout << "Two-way Stack is empty" << endl;
     } else {
-        rear = rear->prev;
-        rear->next = nullptr;
+        cout << "Left Stack Contents:" <<endl; 
+        for (int i = 0; i <= leftTop; i++) {
+            cout  <<  array[i]  << endl;
+        }       
+        cout << "Right Stack Contents:" << endl; 
+        for (int i = size - 1; i >= rightTop; i--) {
+            cout  <<  array[i]  << endl;
+        }
     }
-
-    delete temp;
-    display();
-    return deletedItem;
-}
-
-template <typename T>
-void Deque<T>::display() {
-    if (isEmpty()) {
-        cout << "DEQUE is empty.\n";
-        return;
-    }
-
-    cout << "DEQUE elements: ";
-    Node<T>* current = front;
-    while (current != nullptr) {
-        cout << current->data << " ";
-        current = current->next;
-    }
-    cout << endl;
-}
-
-template <typename T>
-bool Deque<T>::isEmpty() {
-    return front == nullptr;
 }
