@@ -27,6 +27,8 @@ public:
     void sortByDuration();
     void sortByGenre();
 
+    friend ostream &operator<<(ostream &out, const Playlist &playlist);
+    
 private:
     Song* merge(Song* left, Song* right, const std::string& criteria);
     Song* mergeSort(Song* head, const std::string& criteria);
