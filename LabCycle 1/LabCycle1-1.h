@@ -19,4 +19,6 @@ public:
     void deleteFromPosition(int);
     int findIndex(T);
     void display();
+
+    friend ostream& operator<<(ostream& os, const LinearArray<T>& linearArray);
 };
